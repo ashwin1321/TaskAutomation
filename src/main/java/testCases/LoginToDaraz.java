@@ -35,18 +35,24 @@ public class LoginToDaraz {
             String username = (String) data[1];
             String password = (String) data[2];
 
-            login.login(username,password);
+            login.login(username, password);
 
-            // check the modal for error message, if logged in break the loop
-            try{
-                Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-                String message = alert.getText();
-                System.out.println("message = " + message);
-                alert.accept();
-            }catch(Exception e){
-                System.out.println("Modal didn't appear");
+            boolean errorLogging = false;
+            try {
+                // when login error, a modal pops up, having div block with classname darazmod-loading-warp
+                errorLogging = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("darazmod-loading-warp"))) != null;
+            } catch (Exception e) {
+                System.out.println("Error occured " + e.getMessage());
             }
 
+            if (errorLogging) {
+                System.out.println("Error while logging...");
+                webDriver.navigate().refresh(); // Reload the page
+            } else {
+                System.out.println("Login successful for username: " + username);
+                break;
+            }
         }
+
     }
 }
