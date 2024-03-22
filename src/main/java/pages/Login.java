@@ -11,9 +11,9 @@ public class Login extends DarazUrl{
     }
 
     public void login(String username, String password){
-        WebElement locateUsername = driver.findElement(By.id("uname"));
-        WebElement locatepass = driver.findElement(By.id("pass"));
-        WebElement locateloginButton = driver.findElement(By.id("loginButton"));
+        WebElement locateUsername = driver.findElement(By.xpath("//input[@type='text']"));
+        WebElement locatepass = driver.findElement(By.xpath("//input[@type='password']"));
+        WebElement locateloginButton = driver.findElement(By.xpath("//button[contains(text(),'LOGIN')]"));
 
         locateUsername.sendKeys(username);
         locatepass.sendKeys(password);
@@ -21,8 +21,8 @@ public class Login extends DarazUrl{
         locateloginButton.click();
     }
 
-    public void clickLogin(String id){
-        WebElement link = driver.findElement(By.id(id));
+    public void clickLogin(WebElement id){
+        id.click();
     }
 
 }
