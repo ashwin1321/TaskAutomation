@@ -1,4 +1,4 @@
-package org.example;
+package main;
 
 
 import pages.Login;
@@ -11,9 +11,8 @@ public class Main {
     public static void main(String[] args) {
 
         List<Object[]> userData = GetUserRows.getUserRows();
-
         LoginToDaraz login = new LoginToDaraz();
-        login.loginToDaraz("ashwin", "ashwin");
-
+        assert userData != null;
+        login.loginToDaraz(userData);
     }
 }
