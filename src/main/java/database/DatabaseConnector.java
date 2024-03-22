@@ -6,10 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseConnector {
-    public static void main(String[] args) {
-        String url = "jdbc:sqlite::memory:";
+    public static void databaseConnector(Connection connection) {
 
-        try (Connection connection = DriverManager.getConnection(url)) {
             if (connection != null) {
                 System.out.println("Connected to the sqlite database");
 
@@ -36,8 +34,6 @@ public class DatabaseConnector {
                     System.err.println("Exception occurred: " + e.getMessage());
                 }
             }
-        } catch (SQLException e) {
-            System.err.println("Error connecting to database: " + e.getMessage());
-        }
+
     }
 }
