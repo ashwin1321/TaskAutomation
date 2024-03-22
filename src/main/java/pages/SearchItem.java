@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchItem {
@@ -51,6 +52,34 @@ public class SearchItem {
         } else {
             System.out.println("There are less than 4 suggestions");
         }
+
+        WebElement generalProductsDiv = driver.findElement(By.cssSelector("[data-qa-locator='general-products']"));
+
+        List<WebElement> productDivs = generalProductsDiv.findElements(By.cssSelector("div[data-qa-locator='product-item']"));
+        System.out.println("productDivs = " + productDivs);
+
+        List<WebElement> productsWithDesiredPrice = new ArrayList<>();
+
+        for (WebElement productDiv : productDivs) {
+            // Find the element containing the price
+            WebElement priceElement = productDiv.findElement(By.cssSelector("span[class='currency--GVKjl']"));
+            // Check if the price matches the desired value
+            if (priceElement.getText().equals("28,999")) {
+                productsWithDesiredPrice.add(productDiv);
+            }
+        }
+
+        if (!productsWithDesiredPrice.isEmpty()) {
+            WebElement firstProduct = productsWithDesiredPrice.get(0);
+            firstProduct.click();
+        } else {
+            System.out.println("No product found with price 28.999");
+        }
+
+        WebElement addToCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Add to Cart')]")));
+        addToCart = wait.until(ExpectedConditions.elementToBeClickable(addToCart));
+        addToCart.click();
+
 
     }
 }
