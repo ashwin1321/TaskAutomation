@@ -21,4 +21,8 @@ public class Login extends DarazUrl{
         locateloginButton.click();
     }
 
+    public void clickLogin(String id){
+        WebElement link = driver.findElement(By.id(id));
+    }
+
 }
