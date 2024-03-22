@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.List;
 
 public class SearchItem {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.daraz.com.np/");
@@ -23,18 +23,17 @@ public class SearchItem {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         // parent suggestion div class
         WebElement suggestionsContainer = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='suggest-list--3Tm8']")));
-
+        System.out.println("suggestionsContainer = " + suggestionsContainer);
         // all the children suggestions have same class
-        List<WebElement> suggestionElements = suggestionsContainer.findElements(By.xpath("//div[@class='suggest-common--2KmE ']"));
-
+        List<WebElement> suggestionElements = suggestionsContainer.findElements(By.xpath("//a[@class='suggest-common--2KmE ']"));
+        System.out.println("suggestionElements = " + suggestionElements);
         boolean allSuggestionsStartWithSam = true;
 
         for (WebElement suggestion : suggestionElements) {
             String suggestionText = suggestion.getText();
 
-            // Sam must be in bold inside span tag like <span><b>Sam</b>Sung....</span>
             // if any suggestion doesn't start with sam it returns false
-            if (!suggestionText.startsWith("<b>Sam</b>")) {
+            if (!suggestionText.startsWith("Sam")) {
                 allSuggestionsStartWithSam = false;
                 break;
             }
@@ -43,7 +42,14 @@ public class SearchItem {
         if (allSuggestionsStartWithSam) {
             System.out.println("All suggestions start with 'Sam'");
         } else {
-            System.out.println("Not all suggestions start with 'Sam'");
+            System.out.println("Not everything is Sam");
+        }
+
+        if (suggestionElements.size() >= 4) {
+            WebElement forthItem = suggestionElements.get(3);
+            forthItem.click();
+        } else {
+            System.out.println("There are less than 4 suggestions");
         }
 
     }
