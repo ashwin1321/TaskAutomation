@@ -53,24 +53,22 @@ public class SearchItem {
             System.out.println("There are less than 4 suggestions");
         }
 
-        WebElement generalProductsDiv = driver.findElement(By.cssSelector("[data-qa-locator='general-products']"));
+        WebElement AllItemsInDashboard = driver.findElement(By.cssSelector("[data-qa-locator='general-products']"));
 
-        List<WebElement> productDivs = generalProductsDiv.findElements(By.cssSelector("div[data-qa-locator='product-item']"));
-        System.out.println("productDivs = " + productDivs);
+        List<WebElement> indProducts = AllItemsInDashboard.findElements(By.cssSelector("div[data-qa-locator='product-item']"));
+        System.out.println("productDivs = " + indProducts);
 
-        List<WebElement> productsWithDesiredPrice = new ArrayList<>();
+        List<WebElement> desiredProduct = new ArrayList<>();
 
-        for (WebElement productDiv : productDivs) {
-            // Find the element containing the price
-            WebElement priceElement = productDiv.findElement(By.cssSelector("span[class='currency--GVKjl']"));
-            // Check if the price matches the desired value
-            if (priceElement.getText().equals("28,999")) {
-                productsWithDesiredPrice.add(productDiv);
+        for (WebElement product : indProducts) {
+            WebElement item = product.findElement(By.cssSelector("span[class='currency--GVKjl']"));
+            if (item.getText().equals("28,999")) {
+                desiredProduct.add(product);
             }
         }
 
-        if (!productsWithDesiredPrice.isEmpty()) {
-            WebElement firstProduct = productsWithDesiredPrice.get(0);
+        if (!desiredProduct.isEmpty()) {
+            WebElement firstProduct = desiredProduct.get(0);
             firstProduct.click();
         } else {
             System.out.println("No product found with price 28.999");
