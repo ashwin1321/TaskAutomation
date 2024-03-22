@@ -71,7 +71,7 @@ public class SearchItem {
             WebElement firstProduct = desiredProduct.get(0);
             firstProduct.click();
         } else {
-            System.out.println("No product found with price 28.999");
+            System.out.println("No product found with price 28,999");
         }
 
         WebElement addToCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Add to Cart')]")));

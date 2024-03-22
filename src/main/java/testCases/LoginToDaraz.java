@@ -46,7 +46,6 @@ public class LoginToDaraz {
             }
 
             if (errorLogging) {
-                System.out.println("Error while logging...");
                 webDriver.navigate().refresh(); // Reload the page
             } else {
                 System.out.println("Login successful for username: " + username);
