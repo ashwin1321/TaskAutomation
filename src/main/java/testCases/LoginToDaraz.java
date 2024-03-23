@@ -26,7 +26,7 @@ public class LoginToDaraz {
         webDriver.manage().window().maximize();
         webDriver.get("https://www.daraz.com.np/");
 
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         WebElement click = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Login')]")));
         login.clickLogin(click);
 
@@ -39,8 +39,14 @@ public class LoginToDaraz {
 
             boolean errorLogging = false;
             try {
-                // when login error, a modal pops up, having div block with classname darazmod-loading-warp
-                errorLogging = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("darazmod-loading-warp"))) != null;
+                // when login error, a modal pops up, having div block with classname next-feedback-title with error message
+                WebElement errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("next-feedback-error")));
+
+                System.out.println("errorMessage = " + errorMessage);
+
+                if(errorMessage.getText().contains("Error")){
+                    errorLogging =  true;
+                }
             } catch (Exception e) {
                 System.out.println("Error occured " + e.getMessage());
             }
