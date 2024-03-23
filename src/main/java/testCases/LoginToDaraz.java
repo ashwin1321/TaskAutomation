@@ -28,6 +28,7 @@ public class LoginToDaraz {
 
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         WebElement click = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Login')]")));
+        // click login button from home page
         login.clickLogin(click);
 
         assert userData != null;
@@ -35,11 +36,12 @@ public class LoginToDaraz {
             String username = (String) data[1];
             String password = (String) data[2];
 
+            // insert uname and pwd in the login page
             login.login(username, password);
 
             boolean errorLogging = false;
             try {
-                // when login error, a modal pops up, having div block with classname next-feedback-title with error message
+                // when login error, a modal pops up, having div block with classname next-feedback-title with one div with message Error
                 WebElement errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("next-feedback-error")));
 
                 System.out.println("errorMessage = " + errorMessage);
