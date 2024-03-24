@@ -44,10 +44,9 @@ public class LoginToDaraz {
                 // when login error, a modal pops up, having div block with classname next-feedback-title with one div with message Error
                 WebElement errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("next-feedback-error")));
 
-                System.out.println("errorMessage = " + errorMessage);
-
                 if(errorMessage.getText().contains("Error")){
                     errorLogging =  true;
+                    System.out.println("Invalid username or password.....");
                 }
             } catch (Exception e) {
                 System.out.println("Error occured " + e.getMessage());
