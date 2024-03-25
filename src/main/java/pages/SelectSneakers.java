@@ -43,6 +43,9 @@ public class SelectSneakers {
         //get all the products
        List<WebElement> getAllInfoForSneaker = sneakersInfos.findElements(By.cssSelector("div[data-qa-locator='product-item']"));
 
+       /*
+       * Get 20 items and exporting in csv file
+       * */
        // add first 20 products in the list
         List<String[]> productList = new ArrayList<>();
         int count = 0;
@@ -57,8 +60,13 @@ public class SelectSneakers {
             productList.add(new String[]{name, price});
             count++;
         }
-
         exportToCSV(productList);
+
+        /*
+        * Adding the 1st item starting with Air Force 1 to cart
+        * */
+        addToCart(getAllInfoForSneaker, wait, driver);
+
     }
 
     private static void exportToCSV(List<String[]> productList) {
@@ -75,4 +83,30 @@ public class SelectSneakers {
             System.out.println("exception occured = " + e);
         }
     }
+
+    public  static void addToCart(List<WebElement> listOfSneakers, WebDriverWait wait, WebDriver driver){
+
+        // select the first item with AirForce 1
+        for (WebElement item: listOfSneakers){
+            String title = item.findElement(By.cssSelector("div[id*='title']")).getText();
+
+            if (title.startsWith("Air Force 1")) {
+                System.out.println("Selecting the first Air Force 1.....");
+                item.click();
+                break;
+            }
+        }
+
+        // select size
+        WebElement getSize43 =  driver.findElement(By.xpath("//span[@class='sku-variable-size' and text()='43']"));
+        getSize43.click();
+
+        // select Quantity
+
+        // add to cart code
+        WebElement addToCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Add to Cart')]")));
+        addToCart = wait.until(ExpectedConditions.elementToBeClickable(addToCart));
+        addToCart.click();
+    }
+
 }
