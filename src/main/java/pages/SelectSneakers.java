@@ -11,13 +11,16 @@ import utils.AddToCart;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SelectSneakers {
 
     public void exportToCSV(List<WebElement> getAllInfoForSneaker) {
 
         List<String[]> productList = new ArrayList<>();
+        Set<String> uniqueProducts = new HashSet<>();
         String fileName = "ShoeList.csv";
         int count = 0;
 
@@ -29,6 +32,11 @@ public class SelectSneakers {
             // there are 2 span tag so get the one with price
             WebElement priceElement = item.findElement(By.xpath(".//span[@class='currency--GVKjl']"));
             String price = priceElement.getText().replace(",", "");
+            String productKey = name + "," + price; // Concatenate name and price to form a unique key
+            if (uniqueProducts.contains(productKey)) { // If product already exists, skip it
+                continue;
+            }
+            uniqueProducts.add(productKey);
             productList.add(new String[]{name, price});
             count++;
         }
