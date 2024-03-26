@@ -1,15 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.AddToCart;
 import utils.WaitingTime;
 
-import java.time.Duration;
 import java.util.List;
 
 public class FlashSale {
@@ -43,11 +42,19 @@ public class FlashSale {
         System.out.println("Sale Item Name = " + getNameOfItem.getText());
         System.out.println("Position of the item  = " + index);
 
+        // flash sale is not visible in default viewport so scroll abit
+        scrollIntoView(driver, 500);
+
         WebDriverWait wait = WaitingTime.wait(driver);
         getItem = wait.until(ExpectedConditions.elementToBeClickable(getItem));
         getItem.click();
 
         // add to cart // make this common method somewhere as it is used again and again
         AddToCart.addItemToCart(wait);
+    }
+
+    public void scrollIntoView(WebDriver driver, int offset) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("window.scrollBy(0, arguments[0]);", offset);
     }
 }
