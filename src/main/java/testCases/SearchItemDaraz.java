@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.SearchItem;
+import utils.DelayLoading;
 import utils.WaitingTime;
 
 import java.util.List;
@@ -39,6 +40,9 @@ public class SearchItemDaraz {
         List<WebElement> desiredItems = searchItem.selectItemWithPrice(driver);
         // click on the first filtered item
         searchItem.clickFirstProduct(desiredItems, wait);
+
+        // delay 5 second
+        DelayLoading.delayFiveSecond();
     }
 }
 

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.SelectSneakers;
+import utils.DelayLoading;
 import utils.WaitingTime;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class SelectSneakersDaraz {
         this.driver = driver;
     }
     public void selectSneakers(){
+
+        driver.get("https://www.daraz.com.np/");
 
         WebDriverWait wait = WaitingTime.wait(driver);
         SelectSneakers selectSneakers = new SelectSneakers();
@@ -33,5 +36,7 @@ public class SelectSneakersDaraz {
 
         // select sneaker with name Air Force 1 and add to cart
         selectSneakers.selectSpecificSneaker(getAllInfoForSneaker, wait, driver);
+
+        DelayLoading.delayFiveSecond();
     }
 }

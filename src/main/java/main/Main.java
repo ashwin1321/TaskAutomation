@@ -7,6 +7,8 @@ import pages.FlashSale;
 import pages.Login;
 import testCases.FlashSaleDaraz;
 import testCases.LoginToDaraz;
+import testCases.SearchItemDaraz;
+import testCases.SelectSneakersDaraz;
 import utils.GetUserRows;
 
 import java.util.List;
@@ -27,9 +29,18 @@ public class Main {
         assert userData != null;
         login.loginToDaraz(userData);
 
-        // for flash sale
-//        FlashSaleDaraz flashSaleDaraz = new FlashSaleDaraz(driver);
-//        flashSaleDaraz.flashSale();
+        // searchItem from searchbar
+        SearchItemDaraz searchItemDaraz = new SearchItemDaraz(driver);
+        searchItemDaraz.searchItem();
 
+         // for flash sale
+        FlashSaleDaraz flashSaleDaraz = new FlashSaleDaraz(driver);
+        flashSaleDaraz.flashSale();
+
+        // select specific sneaker
+        SelectSneakersDaraz selectSneakersDaraz = new SelectSneakersDaraz(driver);
+        selectSneakersDaraz.selectSneakers();
+
+        driver.close();
     }
 }

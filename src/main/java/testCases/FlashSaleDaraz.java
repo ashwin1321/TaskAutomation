@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.FlashSale;
+import utils.DelayLoading;
 
 public class FlashSaleDaraz {
 
@@ -14,6 +15,8 @@ public class FlashSaleDaraz {
 
     public void flashSale() {
 
+        driver.get("https://www.daraz.com.np/");
+
         WebElement locateFlashSale = driver.findElement(By.id("hp-flash-sale"));
         boolean isFlashSale = locateFlashSale.getText().contains("Flash Sale");
         WebElement hourLeft = locateFlashSale.findElement(By.id("hours"));
@@ -23,5 +26,7 @@ public class FlashSaleDaraz {
 
         int time = flashSale.remainingTime(hourLeft, minuteLeft);
         flashSale.handleFlashSale(isFlashSale, time, locateFlashSale, driver);
+
+        DelayLoading.delayFiveSecond();
     }
 }
