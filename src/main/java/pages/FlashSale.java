@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.AddToCart;
+import utils.DelayLoading;
 import utils.WaitingTime;
 
 import java.util.List;
@@ -42,19 +43,22 @@ public class FlashSale {
         System.out.println("Sale Item Name = " + getNameOfItem.getText());
         System.out.println("Position of the item  = " + index);
 
-        // flash sale is not visible in default viewport so scroll abit
-        scrollIntoView(driver, 500);
+        // Scroll the page to bring the element into view
+        scrollIntoView(driver, getItem);
+        DelayLoading.delayFiveSecond();
 
         WebDriverWait wait = WaitingTime.wait(driver);
-        getItem = wait.until(ExpectedConditions.elementToBeClickable(getItem));
-        getItem.click();
+        WebElement clickableItem = wait.until(ExpectedConditions.elementToBeClickable(getItem));
+
+        // Click on the element
+        clickableItem.click();
 
         // add to cart // make this common method somewhere as it is used again and again
         AddToCart.addItemToCart(wait);
     }
 
-    public void scrollIntoView(WebDriver driver, int offset) {
+    public void scrollIntoView(WebDriver driver, WebElement element) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("window.scrollBy(0, arguments[0]);", offset);
+        jsExecutor.executeScript("arguments[0].scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});", element);
     }
 }
