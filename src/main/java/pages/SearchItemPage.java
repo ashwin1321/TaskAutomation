@@ -9,7 +9,7 @@ import utils.AddToCart;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchItem {
+public class SearchItemPage {
 
     public  boolean allSuggestionWithSam(List<WebElement> suggestionElements){
 

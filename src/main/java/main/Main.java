@@ -3,12 +3,10 @@ package main;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.FlashSale;
-import pages.Login;
-import testCases.FlashSaleDaraz;
-import testCases.LoginToDaraz;
-import testCases.SearchItemDaraz;
-import testCases.SelectSneakersDaraz;
+import testCases.FlashSaleTest;
+import testCases.LoginToTest;
+import testCases.SearchItemTest;
+import testCases.SelectSneakersTest;
 import utils.GetUserRows;
 
 import java.util.List;
@@ -25,21 +23,21 @@ public class Main {
         driver.get("https://www.daraz.com.np/");
 
         // attempts login to daraz
-        LoginToDaraz login = new LoginToDaraz(driver);
+        LoginToTest login = new LoginToTest(driver);
         assert userData != null;
         login.loginToDaraz(userData);
 
         // searchItem from searchbar
-        SearchItemDaraz searchItemDaraz = new SearchItemDaraz(driver);
-        searchItemDaraz.searchItem();
+        SearchItemTest searchItemTest = new SearchItemTest(driver);
+        searchItemTest.searchItem();
 
          // for flash sale
-        FlashSaleDaraz flashSaleDaraz = new FlashSaleDaraz(driver);
-        flashSaleDaraz.flashSale();
+        FlashSaleTest flashSaleTest = new FlashSaleTest(driver);
+        flashSaleTest.flashSale();
 
         // select specific sneaker
-        SelectSneakersDaraz selectSneakersDaraz = new SelectSneakersDaraz(driver);
-        selectSneakersDaraz.selectSneakers();
+        SelectSneakersTest selectSneakersTest = new SelectSneakersTest(driver);
+        selectSneakersTest.selectSneakers();
 
         driver.close();
     }

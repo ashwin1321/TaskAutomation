@@ -12,7 +12,7 @@ import utils.WaitingTime;
 
 import java.util.List;
 
-public class FlashSale {
+public class FlashSalePage {
 
     public int remainingTime(WebElement hourLeft, WebElement minuteLeft) {
         int hour = Integer.parseInt(hourLeft.getText());

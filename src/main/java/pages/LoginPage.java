@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Login{
+public class LoginPage {
 
     private final WebDriver driver;
 
-    public Login(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         this.driver =  driver;
     }
 

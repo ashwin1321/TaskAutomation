@@ -5,22 +5,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.SearchItem;
+import pages.SearchItemPage;
 import utils.DelayLoading;
 import utils.WaitingTime;
 
 import java.util.List;
 
-public class SearchItemDaraz {
+public class SearchItemTest {
 
     public final WebDriver driver;
 
-    public SearchItemDaraz(WebDriver driver) {
+    public SearchItemTest(WebDriver driver) {
         this.driver = driver;
     }
 
     public void searchItem(){
-        SearchItem searchItem = new SearchItem();
+        SearchItemPage searchItem = new SearchItemPage();
         WebElement locatePrompt = driver.findElement(By.xpath("//input[@type='search']"));
         locatePrompt.sendKeys("sam");
 

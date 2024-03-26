@@ -1,26 +1,23 @@
 package testCases;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.Login;
+import pages.LoginPage;
 import utils.WaitingTime;
 
-import java.time.Duration;
 import java.util.List;
 
-public class LoginToDaraz {
+public class LoginToTest {
 
     private final WebDriver webDriver;
-    private final Login login;
+    private final LoginPage login;
 
-    public LoginToDaraz(WebDriver driver){
+    public LoginToTest(WebDriver driver){
         this.webDriver = driver;
-        login = new Login(webDriver);
+        login = new LoginPage(webDriver);
     }
 
     public void loginToDaraz(List<Object[]> userData){

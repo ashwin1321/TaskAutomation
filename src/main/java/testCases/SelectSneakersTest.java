@@ -3,17 +3,17 @@ package testCases;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.SelectSneakers;
+import pages.SelectSneakersPage;
 import utils.DelayLoading;
 import utils.WaitingTime;
 
 import java.util.List;
 
-public class SelectSneakersDaraz {
+public class SelectSneakersTest {
 
     public final WebDriver driver;
 
-    public SelectSneakersDaraz(WebDriver driver) {
+    public SelectSneakersTest(WebDriver driver) {
         this.driver = driver;
     }
     public void selectSneakers(){
@@ -21,7 +21,7 @@ public class SelectSneakersDaraz {
         driver.get("https://www.daraz.com.np/");
 
         WebDriverWait wait = WaitingTime.wait(driver);
-        SelectSneakers selectSneakers = new SelectSneakers();
+        SelectSneakersPage selectSneakers = new SelectSneakersPage();
         // locate mens fashion section having unique if as:
         selectSneakers.clickMensFashion(driver, wait);
 

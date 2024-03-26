@@ -3,13 +3,13 @@ package testCases;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pages.FlashSale;
+import pages.FlashSalePage;
 import utils.DelayLoading;
 
-public class FlashSaleDaraz {
+public class FlashSaleTest {
 
     public final WebDriver driver;
-    public FlashSaleDaraz(WebDriver driver) {
+    public FlashSaleTest(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -22,7 +22,7 @@ public class FlashSaleDaraz {
         WebElement hourLeft = locateFlashSale.findElement(By.id("hours"));
         WebElement minuteLeft = locateFlashSale.findElement(By.id("minutes"));
 
-        FlashSale flashSale = new FlashSale();
+        FlashSalePage flashSale = new FlashSalePage();
 
         int time = flashSale.remainingTime(hourLeft, minuteLeft);
         flashSale.handleFlashSale(isFlashSale, time, locateFlashSale, driver);
