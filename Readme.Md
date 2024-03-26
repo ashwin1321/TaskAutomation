@@ -16,7 +16,7 @@ git clone git@github.com:ashwin1321/TaskAutomation.git
 
 ### Running the application
 - build the application if not auto built
-- run the Main.java class to execute the application.
+- run the Main.java class (/src/main/java/main/Main.java) to execute the application
 
 ## Compatibility
 - Since chrome driver is used to interact with the application, chrome browser must be installed in the users device.
