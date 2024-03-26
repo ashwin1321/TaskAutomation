@@ -3,7 +3,6 @@ package testCases;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.FlashSale;
 
 public class FlashSaleDaraz {
@@ -20,7 +19,9 @@ public class FlashSaleDaraz {
         WebElement hourLeft = locateFlashSale.findElement(By.id("hours"));
         WebElement minuteLeft = locateFlashSale.findElement(By.id("minutes"));
 
-        int time = FlashSale.remainingTime(hourLeft, minuteLeft);
-        FlashSale.handleFlashSale(isFlashSale, time, locateFlashSale, driver);
+        FlashSale flashSale = new FlashSale();
+
+        int time = flashSale.remainingTime(hourLeft, minuteLeft);
+        flashSale.handleFlashSale(isFlashSale, time, locateFlashSale, driver);
     }
 }

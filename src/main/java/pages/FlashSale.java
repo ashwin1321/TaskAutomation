@@ -14,13 +14,13 @@ import java.util.List;
 
 public class FlashSale {
 
-    public static int remainingTime(WebElement hourLeft, WebElement minuteLeft) {
+    public int remainingTime(WebElement hourLeft, WebElement minuteLeft) {
         int hour = Integer.parseInt(hourLeft.getText());
         int minute = Integer.parseInt(minuteLeft.getText());
         return hour * 60 + minute;
     }
 
-    public static void handleFlashSale(boolean isFlashSale, int time, WebElement locateFlashSale, WebDriver driver) {
+    public void handleFlashSale(boolean isFlashSale, int time, WebElement locateFlashSale, WebDriver driver) {
         if (isFlashSale) {
             WebElement saleItems = locateFlashSale.findElement(By.cssSelector(".card-fs-content-body.J_FSBody"));
             List<WebElement> aTagElement = saleItems.findElements(By.tagName("a"));
@@ -37,7 +37,7 @@ public class FlashSale {
         }
     }
 
-    public static void getItemFromSale(int index, List<WebElement> aTagElement,  WebDriver driver){
+    public void getItemFromSale(int index, List<WebElement> aTagElement,  WebDriver driver){
         WebElement getItem = aTagElement.get(index);
         WebElement getNameOfItem = getItem.findElement(By.className("fs-card-title"));
         System.out.println("Sale Item Name = " + getNameOfItem.getText());
