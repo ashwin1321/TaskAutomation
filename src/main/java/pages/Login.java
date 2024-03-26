@@ -4,10 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Login extends DarazUrl{
+public class Login{
+
+    private final WebDriver driver;
 
     public Login(WebDriver driver) {
-        super(driver);
+        this.driver =  driver;
     }
 
     public void login(String username, String password){

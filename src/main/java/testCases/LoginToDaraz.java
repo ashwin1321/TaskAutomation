@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.Login;
+import utils.WaitingTime;
 
 import java.time.Duration;
 import java.util.List;
@@ -17,16 +18,14 @@ public class LoginToDaraz {
     private final WebDriver webDriver;
     private final Login login;
 
-    public LoginToDaraz(){
-        webDriver = new ChromeDriver();
+    public LoginToDaraz(WebDriver driver){
+        this.webDriver = driver;
         login = new Login(webDriver);
     }
 
     public void loginToDaraz(List<Object[]> userData){
-        webDriver.manage().window().maximize();
-        webDriver.get("https://www.daraz.com.np/");
 
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        WebDriverWait wait = WaitingTime.wait(webDriver);
         WebElement click = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),'Login')]")));
         // click login button from home page
         login.clickLogin(click);

@@ -1,5 +1,6 @@
 package pages;
 
+import net.bytebuddy.description.type.TypeDescription;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,14 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.AddToCart;
+import utils.WaitingTime;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SelectSneakers {
 
@@ -25,7 +26,7 @@ public class SelectSneakers {
         driver.manage().window().maximize();
         driver.get("https://www.daraz.com.np/");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = WaitingTime.wait(driver);
         // locate mens fashion section having unique if as:
         WebElement locateMensFashion = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Level_1_Category_No9")));
 
@@ -65,7 +66,7 @@ public class SelectSneakers {
         /*
         * Adding the 1st item starting with Air Force 1 to cart
         * */
-        addToCart(getAllInfoForSneaker, wait, driver);
+        selectSneaker(getAllInfoForSneaker, wait, driver);
 
     }
 
@@ -84,7 +85,7 @@ public class SelectSneakers {
         }
     }
 
-    public  static void addToCart(List<WebElement> listOfSneakers, WebDriverWait wait, WebDriver driver){
+    public  static void selectSneaker(List<WebElement> listOfSneakers, WebDriverWait wait, WebDriver driver){
 
         // select the first item with AirForce 1
         for (WebElement item: listOfSneakers){
@@ -101,12 +102,12 @@ public class SelectSneakers {
         WebElement getSize43 =  driver.findElement(By.xpath("//span[@class='sku-variable-size' and text()='43']"));
         getSize43.click();
 
-        // select Quantity
+        // add quantity for the item
+        WebElement addQuantity = driver.findElement(By.cssSelector("a.next-number-picker-handler.next-number-picker-handler-up i.next-icon-add"));
+        addQuantity.click();
 
-        // add to cart code
-        WebElement addToCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Add to Cart')]")));
-        addToCart = wait.until(ExpectedConditions.elementToBeClickable(addToCart));
-        addToCart.click();
+        // add to cart
+        AddToCart.addItemToCart(wait);
     }
 
 }

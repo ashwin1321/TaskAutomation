@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.AddToCart;
+import utils.WaitingTime;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -20,8 +22,7 @@ public class SearchItem {
         WebElement locatePrompt = driver.findElement(By.xpath("//input[@type='search']"));
         locatePrompt.sendKeys("sam");
 
-        // wait for 10 sec
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = WaitingTime.wait(driver);
         // parent suggestion div class
         WebElement suggestionsContainer = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='suggest-list--3Tm8']")));
         System.out.println("suggestionsContainer = " + suggestionsContainer);
@@ -70,14 +71,11 @@ public class SearchItem {
         if (!desiredProduct.isEmpty()) {
             WebElement firstProduct = desiredProduct.get(0);
             firstProduct.click();
+
+            // Add to cart
+            AddToCart.addItemToCart(wait);
         } else {
             System.out.println("No product found with price 28,999");
         }
-
-        WebElement addToCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Add to Cart')]")));
-        addToCart = wait.until(ExpectedConditions.elementToBeClickable(addToCart));
-        addToCart.click();
-
-
     }
 }
