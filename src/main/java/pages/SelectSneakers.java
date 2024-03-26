@@ -1,55 +1,26 @@
 package pages;
 
-import net.bytebuddy.description.type.TypeDescription;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.AddToCart;
-import utils.WaitingTime;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectSneakers {
 
-    public static void main(String[] args) {
+    public void exportToCSV(List<WebElement> getAllInfoForSneaker) {
 
-        WebDriver driver = new ChromeDriver();
-
-        driver.manage().window().maximize();
-        driver.get("https://www.daraz.com.np/");
-
-        WebDriverWait wait = WaitingTime.wait(driver);
-        // locate mens fashion section having unique if as:
-        WebElement locateMensFashion = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Level_1_Category_No9")));
-
-        Actions actions = new Actions(driver);
-        actions.moveToElement(locateMensFashion).perform();
-//        locateMensFashion.click();
-
-        WebElement selectShoes = driver.findElement(By.xpath("//li[@class='lzd-site-menu-sub-item'][@data-cate='cate_3_3']"));
-       selectShoes.click();
-
-        WebElement selectSneakersLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Sneakers']")));
-        selectSneakersLink.click();
-
-        WebElement sneakersInfos = wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-qa-locator='general-products']"))));
-        //get all the products
-       List<WebElement> getAllInfoForSneaker = sneakersInfos.findElements(By.cssSelector("div[data-qa-locator='product-item']"));
-
-       /*
-       * Get 20 items and exporting in csv file
-       * */
-       // add first 20 products in the list
         List<String[]> productList = new ArrayList<>();
+        String fileName = "ShoeList.csv";
         int count = 0;
+
         for (WebElement item : getAllInfoForSneaker) {
             if (count >= 20) {
                 break;
@@ -57,21 +28,11 @@ public class SelectSneakers {
             String name = item.findElement(By.xpath(".//div[contains(@id, 'title')]")).getText();
             // there are 2 span tag so get the one with price
             WebElement priceElement = item.findElement(By.xpath(".//span[@class='currency--GVKjl']"));
-            String price = priceElement.getText();
+            String price = priceElement.getText().replace(",", "");
             productList.add(new String[]{name, price});
             count++;
         }
-        exportToCSV(productList);
 
-        /*
-        * Adding the 1st item starting with Air Force 1 to cart
-        * */
-        selectSneaker(getAllInfoForSneaker, wait, driver);
-
-    }
-
-    private static void exportToCSV(List<String[]> productList) {
-        String fileName = "ShoeList.csv";
         try (FileWriter writer = new FileWriter(fileName)) {
             writer.append("Name,Price\n");
 
@@ -85,7 +46,7 @@ public class SelectSneakers {
         }
     }
 
-    public  static void selectSneaker(List<WebElement> listOfSneakers, WebDriverWait wait, WebDriver driver){
+    public void selectSpecificSneaker(List<WebElement> listOfSneakers, WebDriverWait wait, WebDriver driver){
 
         // select the first item with AirForce 1
         for (WebElement item: listOfSneakers){
@@ -97,7 +58,6 @@ public class SelectSneakers {
                 break;
             }
         }
-
         // select size
         WebElement getSize43 =  driver.findElement(By.xpath("//span[@class='sku-variable-size' and text()='43']"));
         getSize43.click();
@@ -110,4 +70,23 @@ public class SelectSneakers {
         AddToCart.addItemToCart(wait);
     }
 
+    public void clickMensFashion(WebDriver driver, WebDriverWait wait){
+        WebElement locateMensFashion = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Level_1_Category_No9")));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(locateMensFashion).perform();
+    }
+
+    public void selectSneakers(WebDriver driver, WebDriverWait wait){
+        WebElement selectShoes = driver.findElement(By.xpath("//li[@class='lzd-site-menu-sub-item'][@data-cate='cate_3_3']"));
+        selectShoes.click();
+
+        WebElement selectSneakersLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Sneakers']")));
+        selectSneakersLink.click();
+    }
+
+    public List<WebElement> getAllSneakersInfo(WebDriverWait wait){
+        WebElement sneakersInfos = wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-qa-locator='general-products']"))));
+        //get all the products
+        return sneakersInfos.findElements(By.cssSelector("div[data-qa-locator='product-item']"));
+    }
 }
