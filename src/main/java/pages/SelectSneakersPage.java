@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.AddToCart;
+import utils.DelayLoading;
+import utils.ScrollToElement;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -62,6 +64,8 @@ public class SelectSneakersPage {
 
             if (title.startsWith("Air Force 1")) {
                 System.out.println("Selecting the first Air Force 1.....");
+                ScrollToElement.scrollIntoView(driver, item);
+                DelayLoading.delayFiveSecond();
                 item.click();
                 break;
             }

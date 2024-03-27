@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.AddToCart;
 import utils.DelayLoading;
+import utils.ScrollToElement;
 import utils.WaitingTime;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class FlashSalePage {
         System.out.println("Position of the item  = " + index);
 
         // Scroll the page to bring the element into view
-        scrollIntoView(driver, getItem);
+        ScrollToElement.scrollIntoView(driver, getItem);
         DelayLoading.delayFiveSecond();
 
         WebDriverWait wait = WaitingTime.wait(driver);
@@ -55,10 +56,5 @@ public class FlashSalePage {
 
         // add to cart // make this common method somewhere as it is used again and again
         AddToCart.addItemToCart(wait);
-    }
-
-    public void scrollIntoView(WebDriver driver, WebElement element) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("arguments[0].scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});", element);
     }
 }
